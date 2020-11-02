@@ -1,0 +1,16 @@
+
+
+
+
+# Hurricane Laura Shelter Utilizaton Map
+laura <- read.csv(file=file.choose())
+
+laura$lat <- as.numeric(laura$lat)
+laura$lon <- as.numeric(laura$lon)
+
+filter(counties, state_abbv == "LA" | state_abbv == "TX") %>% 
+ggplot(mapping = aes(long, lat, group = group)) +
+geom_polygon(color = "gray22", fill="gray89", size = .25) +
+coord_map(projection = "merc") + 
+geom_point(data = laura, aes(x = lon, y = lat, size = Total_Stays), col = 'firebrick1', inherit.aes = FALSE) + 
+ggtitle("Total Shelter Stays, Aug 20 to Sept 2, 2020")
