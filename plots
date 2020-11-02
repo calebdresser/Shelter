@@ -3,7 +3,7 @@
 
 library(tidyverse)
 
-# plot NSS shelter use over time by state
+# plot NSS shelter use over time by state for Gulf coast 2020 storms
 
 gulf <- read.csv(file=file.choose())
 gulf$Total <- gulf$TX + gulf$LA + gulf$MS
@@ -18,3 +18,16 @@ geom_line(data=gulf, aes(x=date, y=MS, color= "Mississippi")) +
 ggtitle("NSS Shelter Use in Texas, Louisiana, and Mississippi, Aug 1 - Oct 14, 2020") +
 labs(x = "Date", y = "Midnight Census", color = "Legend") + scale_color_manual(values = colors) + 
 theme_minimal()
+
+# make table of daily total populatino in shelters from camp fire
+
+campfiresum <- campfire %>%
+  group_by(date) %>%
+  summarise(census = sum(population_midnight))
+
+ggplot(data=campfiresum, aes(x=date, y=census)) + geom_point() + ggtitle("Total Daily Shelter Stays, Camp Fire, CA, 2018") +
+xlab("Month") + ylab("Midnight Census") + geom_smooth()
+
+
+
+
