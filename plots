@@ -1,0 +1,20 @@
+# Caleb Dresser / CrisisReady
+# October 2020
+
+library(tidyverse)
+
+# plot NSS shelter use over time by state
+
+gulf <- read.csv(file=file.choose())
+gulf$Total <- gulf$TX + gulf$LA + gulf$MS
+gulf$date <- as.Date(gulf$date)
+
+colors <- c("Louisiana" = "blue", "Texas" = "red", "Mississippi" = "orange")
+
+ggplot(data=gulf, aes(x=date, y=Total)) +
+geom_line(data=gulf, aes(x=date, y=TX, color= "Texas")) +
+geom_line(data=gulf, aes(x=date, y=LA, color= "Louisiana")) +
+geom_line(data=gulf, aes(x=date, y=MS, color= "Mississippi")) +
+ggtitle("NSS Shelter Use in Texas, Louisiana, and Mississippi, Aug 1 - Oct 14, 2020") +
+labs(x = "Date", y = "Midnight Census", color = "Legend") + scale_color_manual(values = colors) + 
+theme_minimal()
