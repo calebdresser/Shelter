@@ -16,6 +16,16 @@ geom_point(data = laura, aes(x = lon, y = lat, size = Total_Stays), col = 'fireb
 ggtitle("Total Shelter Stays, Aug 20 to Sept 2, 2020")
 
 
+# map the shelters used in the Camp Fire response
+
+filter(counties, state_abbv == "CA") %>% 
+ggplot(mapping = aes(long, lat, group = group)) +
+geom_polygon(color = "#ffffff", size = .25) +
+coord_map(projection = "merc") + 
+geom_point(data = campfire, aes(x = shelter_longitude, y = shelter_latitude, size = population_midnight), col = 'red', inherit.aes = FALSE) + 
+ggtitle("Camp Fire, CA, 2018") + xlim(-125, -118) + ylim(37, 44)
+
+
 ################ INDIVIDUAL STORM RESULTS TEMPLATE
 
 # Define the time-space constraints for the TIMEFRAME
