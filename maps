@@ -1,8 +1,7 @@
 
 
-
-
 # Hurricane Laura Shelter Utilizaton Map
+
 laura <- read.csv(file=file.choose())
 
 laura$lat <- as.numeric(laura$lat)
@@ -14,3 +13,234 @@ geom_polygon(color = "gray22", fill="gray89", size = .25) +
 coord_map(projection = "merc") + 
 geom_point(data = laura, aes(x = lon, y = lat, size = Total_Stays), col = 'firebrick1', inherit.aes = FALSE) + 
 ggtitle("Total Shelter Stays, Aug 20 to Sept 2, 2020")
+
+
+################ INDIVIDUAL STORM RESULTS TEMPLATE
+
+# Define the time-space constraints for the TIMEFRAME
+storm <- subset(nssdat, date > "STARTDATE" & date < "ENDDATE")
+storm <- filter(storm, (shelter_latitude < 33) & (shelter_latitude > 25))
+storm <- filter(storm, (shelter_longitude < -84.5) & (shelter_longitude > -98.5))
+storm_DailyCensusSum <- storm %>% group_by(date) %>% summarise(daily_census_sum = sum(population))
+
+# Map the results in space
+filter(counties, state_abbv == "TX" | state_abbv == "LA" | state_abbv == "MS" | state_abbv == "AL" | state_abbv == "FL") %>% 
+ggplot(mapping = aes(long, lat, group = group)) +
+geom_polygon(color = "#ffffff", size = .25) +
+coord_map(projection = "merc") + 
+geom_point(data = storm, aes(x = shelter_longitude, y = shelter_latitude, size=population), col = 'red', inherit.aes = FALSE) +
+xlim(-98.5, -84.5) + ylim(25, 33) + ggtitle('***StormName***')
+
+# Plot the results over time
+ggplot(storm_DailyCensusSum, aes(x=date, y= daily_census_sum)) + geom_line() + ggtitle('Shelter Use on the Gulf Coast, 2006-2020')
+
+# Report total person-nights spent in shelters
+sum(storm$population)
+
+################# INDIVIDUAL STORM RESULTS (-5 days, +15 days)
+
+################# Edouard 2008-08-05
+
+# Define the time-space constraints for the TIMEFRAME
+storm <- subset(nssdat, date > "2008-08-03" & date < "2008-08-10")
+storm <- filter(storm, (shelter_latitude < 33) & (shelter_latitude > 25))
+storm <- filter(storm, (shelter_longitude < -84.5) & (shelter_longitude > -96))
+storm_DailyCensusSum <- storm %>% group_by(date) %>% summarise(daily_census_sum = sum(population))
+
+# Map the results in space
+filter(counties, state_abbv == "TX" | state_abbv == "LA" | state_abbv == "MS" | state_abbv == "AL" | state_abbv == "FL") %>% 
+ggplot(mapping = aes(long, lat, group = group)) +
+geom_polygon(color = "#ffffff", size = .25) +
+coord_map(projection = "merc") + 
+geom_point(data = storm, aes(x = shelter_longitude, y = shelter_latitude, size=population), col = 'red', inherit.aes = FALSE) +
+xlim(-98.5, -84.5) + ylim(25, 33) + ggtitle('Edouard')
+
+# Plot the results over time
+ggplot(storm_DailyCensusSum, aes(x=date, y= daily_census_sum)) + geom_line() + ggtitle('Edouard')
+
+# Report total person-nights spent in shelters
+sum(storm$population)
+
+
+################# Claudette 2009-08-17
+
+# Define the time-space constraints for the TIMEFRAME
+storm <- subset(nssdat, date > "2009-08-12" & date < "2009-09-01")
+storm <- filter(storm, (shelter_latitude < 33) & (shelter_latitude > 25))
+storm <- filter(storm, (shelter_longitude < -84.5) & (shelter_longitude > -98.5))
+storm_DailyCensusSum <- storm %>% group_by(date) %>% summarise(daily_census_sum = sum(population))
+
+# Map the results in space
+filter(counties, state_abbv == "TX" | state_abbv == "LA" | state_abbv == "MS" | state_abbv == "AL" | state_abbv == "FL") %>% 
+ggplot(mapping = aes(long, lat, group = group)) +
+geom_polygon(color = "#ffffff", size = .25) +
+coord_map(projection = "merc") + 
+geom_point(data = storm, aes(x = shelter_longitude, y = shelter_latitude, size=population), col = 'red', inherit.aes = FALSE) +
+xlim(-98.5, -84.5) + ylim(25, 33) + ggtitle('Claudette')
+
+# Plot the results over time
+ggplot(storm_DailyCensusSum, aes(x=date, y= daily_census_sum)) + geom_point() + ggtitle('Claudette')
+
+# Report total person-nights spent in shelters
+sum(storm$population)
+
+
+################# Don 2011-07-30
+
+# Define the time-space constraints for the TIMEFRAME
+storm <- subset(nssdat, date > "2011-07-28" & date < "2011-08-05")
+storm <- filter(storm, (shelter_latitude < 33) & (shelter_latitude > 25))
+storm <- filter(storm, (shelter_longitude < -84.5) & (shelter_longitude > -98.5))
+storm_DailyCensusSum <- storm %>% group_by(date) %>% summarise(daily_census_sum = sum(population))
+
+# Map the results in space
+filter(counties, state_abbv == "TX" | state_abbv == "LA" | state_abbv == "MS" | state_abbv == "AL" | state_abbv == "FL") %>% 
+ggplot(mapping = aes(long, lat, group = group)) +
+geom_polygon(color = "#ffffff", size = .25) +
+coord_map(projection = "merc") + 
+geom_point(data = storm, aes(x = shelter_longitude, y = shelter_latitude, size=population), col = 'red', inherit.aes = FALSE) +
+xlim(-98.5, -84.5) + ylim(25, 33) + ggtitle('Don')
+
+# Plot the results over time
+ggplot(storm_DailyCensusSum, aes(x=date, y= daily_census_sum)) + geom_line() + ggtitle('Don')
+
+# Report total person-nights spent in shelters
+sum(storm$population)
+
+
+################# Lee 2011-09-04
+
+# Define the time-space constraints for the TIMEFRAME
+storm <- subset(nssdat, date > "2011-09-01" & date < "2011-09-10")
+storm <- filter(storm, (shelter_latitude < 33) & (shelter_latitude > 25))
+storm <- filter(storm, (shelter_longitude < -84.5) & (shelter_longitude > -93.0))
+storm_DailyCensusSum <- storm %>% group_by(date) %>% summarise(daily_census_sum = sum(population))
+
+# Map the results in space
+filter(counties, state_abbv == "TX" | state_abbv == "LA" | state_abbv == "MS" | state_abbv == "AL" | state_abbv == "FL") %>% 
+ggplot(mapping = aes(long, lat, group = group)) +
+geom_polygon(color = "#ffffff", size = .25) +
+coord_map(projection = "merc") + 
+geom_point(data = storm, aes(x = shelter_longitude, y = shelter_latitude, size=population), col = 'red', inherit.aes = FALSE) +
+xlim(-98.5, -84.5) + ylim(25, 33) + ggtitle('Lee')
+
+# Plot the results over time
+ggplot(storm_DailyCensusSum, aes(x=date, y= daily_census_sum)) + geom_line() + ggtitle('Lee')
+
+# Report total person-nights spent in shelters
+sum(storm$population)
+
+
+################# Bill 2015-06-16
+
+# Define the time-space constraints for the TIMEFRAME
+storm <- subset(nssdat, date > "2015-06-14" & date < "2015-07-01")
+storm <- filter(storm, (shelter_latitude < 33) & (shelter_latitude > 27))
+storm <- filter(storm, (shelter_longitude < -84.5) & (shelter_longitude > -98.5))
+storm_DailyCensusSum <- storm %>% group_by(date) %>% summarise(daily_census_sum = sum(population))
+
+# Map the results in space
+filter(counties, state_abbv == "TX" | state_abbv == "LA" | state_abbv == "MS" | state_abbv == "AL" | state_abbv == "FL") %>% 
+ggplot(mapping = aes(long, lat, group = group)) +
+geom_polygon(color = "#ffffff", size = .25) +
+coord_map(projection = "merc") + 
+geom_point(data = storm, aes(x = shelter_longitude, y = shelter_latitude, size=population), col = 'red', inherit.aes = FALSE) +
+xlim(-98.5, -84.5) + ylim(25, 33) + ggtitle('Bill')
+
+# Plot the results over time
+ggplot(storm_DailyCensusSum, aes(x=date, y= daily_census_sum)) + geom_line() + ggtitle('Bill')
+
+# Report total person-nights spent in shelters
+sum(storm$population)
+
+
+################# Cindy 2017-06-22
+
+# Define the time-space constraints for the TIMEFRAME
+storm <- subset(nssdat, date > "2017-06-17" & date < "2017-07-07")
+storm <- filter(storm, (shelter_latitude < 33) & (shelter_latitude > 25))
+storm <- filter(storm, (shelter_longitude < -84.5) & (shelter_longitude > -98.5))
+storm_DailyCensusSum <- storm %>% group_by(date) %>% summarise(daily_census_sum = sum(population))
+
+# Map the results in space
+filter(counties, state_abbv == "TX" | state_abbv == "LA" | state_abbv == "MS" | state_abbv == "AL" | state_abbv == "FL") %>% 
+ggplot(mapping = aes(long, lat, group = group)) +
+geom_polygon(color = "#ffffff", size = .25) +
+coord_map(projection = "merc") + 
+geom_point(data = storm, aes(x = shelter_longitude, y = shelter_latitude, size=population), col = 'red', inherit.aes = FALSE) +
+xlim(-98.5, -84.5) + ylim(25, 33) + ggtitle('Cindy')
+
+# Plot the results over time
+ggplot(storm_DailyCensusSum, aes(x=date, y= daily_census_sum)) + geom_line() + ggtitle('Cindy')
+
+# Report total person-nights spent in shelters
+sum(storm$population)
+
+
+################# Erin 2007-08-16
+
+# Define the time-space constraints for the TIMEFRAME
+storm <- subset(nssdat, date > "2007-08-11" & date < "2007-08-31")
+storm <- filter(storm, (shelter_latitude < 33) & (shelter_latitude > 25))
+storm <- filter(storm, (shelter_longitude < -84.5) & (shelter_longitude > -98.5))
+storm_DailyCensusSum <- storm %>% group_by(date) %>% summarise(daily_census_sum = sum(population))
+
+# Map the results in space
+filter(counties, state_abbv == "TX" | state_abbv == "LA" | state_abbv == "MS" | state_abbv == "AL" | state_abbv == "FL") %>% 
+ggplot(mapping = aes(long, lat, group = group)) +
+geom_polygon(color = "#ffffff", size = .25) +
+coord_map(projection = "merc") + 
+geom_point(data = storm, aes(x = shelter_longitude, y = shelter_latitude, size=population), col = 'red', inherit.aes = FALSE) +
+xlim(-98.5, -84.5) + ylim(25, 33) + ggtitle('Erin')
+
+# Plot the results over time
+ggplot(storm_DailyCensusSum, aes(x=date, y= daily_census_sum)) + geom_line() + ggtitle('Erin')
+
+# Report total person-nights spent in shelters
+sum(storm$population)
+
+
+################# Gordon 2018-09-05
+
+# Define the time-space constraints for the TIMEFRAME
+storm <- subset(nssdat, date > "2018-08-31" & date < "2018-09-12")
+storm <- filter(storm, (shelter_latitude < 33) & (shelter_latitude > 25))
+storm <- filter(storm, (shelter_longitude < -84.5) & (shelter_longitude > -98.5))
+storm_DailyCensusSum <- storm %>% group_by(date) %>% summarise(daily_census_sum = sum(population))
+
+# Map the results in space
+filter(counties, state_abbv == "TX" | state_abbv == "LA" | state_abbv == "MS" | state_abbv == "AL" | state_abbv == "FL") %>% 
+ggplot(mapping = aes(long, lat, group = group)) +
+geom_polygon(color = "#ffffff", size = .25) +
+coord_map(projection = "merc") + 
+geom_point(data = storm, aes(x = shelter_longitude, y = shelter_latitude, size=population), col = 'red', inherit.aes = FALSE) +
+xlim(-98.5, -84.5) + ylim(25, 33) + ggtitle('Gordon')
+
+# Plot the results over time
+ggplot(storm_DailyCensusSum, aes(x=date, y= daily_census_sum)) + geom_line() + ggtitle('Gordon')
+
+# Report total person-nights spent in shelters
+sum(storm$population)
+
+
+################# Imelda 2019-09-17
+
+# Define the time-space constraints for the TIMEFRAME
+storm <- subset(nssdat, date > "2019-09-12" & date < "2019-10-02")
+storm <- filter(storm, (shelter_latitude < 33) & (shelter_latitude > 25))
+storm <- filter(storm, (shelter_longitude < -84.5) & (shelter_longitude > -98.5))
+storm_DailyCensusSum <- storm %>% group_by(date) %>% summarise(daily_census_sum = sum(population))
+
+# Map the results in space
+filter(counties, state_abbv == "TX" | state_abbv == "LA" | state_abbv == "MS" | state_abbv == "AL" | state_abbv == "FL") %>% 
+ggplot(mapping = aes(long, lat, group = group)) +
+geom_polygon(color = "#ffffff", size = .25) +
+coord_map(projection = "merc") + 
+geom_point(data = storm, aes(x = shelter_longitude, y = shelter_latitude, size=population), col = 'red', inherit.aes = FALSE) +
+xlim(-98.5, -84.5) + ylim(25, 33) + ggtitle('Imelda')
+
+# Plot the results over time
+ggplot(storm_DailyCensusSum, aes(x=date, y= daily_census_sum)) + geom_line() + ggtitle('Imelda')
+
+# Report total person-nights spent in shelters
+sum(storm$population)
